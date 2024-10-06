@@ -1,7 +1,10 @@
 using System.Text;
 using API.Data;
 using API.Services;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+=======
+>>>>>>> d5ea07bfc100eb86231620888662a553ad4d7b2d
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,6 +20,7 @@ builder.Services.AddDbContext<DataContext>(opt =>
 
 builder.Services.AddCors();
 builder.Services.AddScoped<ITokenService, TokenService>();
+<<<<<<< HEAD
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => 
     {
@@ -30,6 +34,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false
         };
     } );
+=======
+>>>>>>> d5ea07bfc100eb86231620888662a553ad4d7b2d
 
 var app = builder.Build(); 
 

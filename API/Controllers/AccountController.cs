@@ -4,10 +4,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Services;
-<<<<<<< HEAD
 using Microsoft.AspNetCore.Authorization;
-=======
->>>>>>> d5ea07bfc100eb86231620888662a553ad4d7b2d
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

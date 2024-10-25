@@ -4,7 +4,6 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,22 +18,24 @@ public class AccountController(
     {
         if(await UserExistsAsync(request.Username)) return BadRequest("Username already in use");
 
-        using var hmac = new HMACSHA512();
-        var user = new AppUser
-        {
-            UserName = request.Username,
-            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(request.Password)),
-            PasswordSalt = hmac.Key
-        };
+        return Ok();
 
-        context.Users.Add(user);
-        await context.SaveChangesAsync();
-        
-        return new UserResponse
-        {
-            Username = user.UserName,
-            Token =tokenService.CreateToken(user)
-        };
+        //using var hmac = new HMACSHA512();
+        //var user = new AppUser
+        //{
+        //    UserName = request.Username,
+        //    PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(request.Password)),
+        //    PasswordSalt = hmac.Key
+        //};
+//
+        //context.Users.Add(user);
+        //await context.SaveChangesAsync();
+        //
+        //return new UserResponse
+        //{
+        //    Username = user.UserName,
+        //    Token =tokenService.CreateToken(user)
+        //};
     }
 
     [HttpPost("login")]

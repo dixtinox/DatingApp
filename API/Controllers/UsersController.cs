@@ -24,7 +24,7 @@ public class UsersController : BaseApiController
     }
     
     [HttpGet("{id:int}")] 
-    public async Task<ActionResult<AppUser>> GetByIdAsync(int id)
+    public async Task<ActionResult<AppUser>> GetByIdAsync(int id) 
     {
         var user = await _repository.GetByIdAsync(id); 
 

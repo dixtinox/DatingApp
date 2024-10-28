@@ -1,9 +1,12 @@
+using API.DTOs;
 using API.Entities;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data;
 
-public class UserRepository(DataContext context) : IUserRepository
+public class UserRepository(DataContext context, IMapper mapper) : IUserRepository
 {
     public async Task<IEnumerable<AppUser>> GetAllAsync() 
     => await context.Users.Include(u => u.Photos).ToListAsync();
@@ -13,6 +16,15 @@ public class UserRepository(DataContext context) : IUserRepository
 
     public async Task<AppUser?> GetByUsernameAsync(string username) 
     => await context.Users.Include(u => u.Photos).SingleOrDefaultAsync(x => x.UserName == username);
+
+    public async Task<MemberResponse?> GetMemberAsync(string username) 
+    => await context.Users.Where(u => u.UserName == username)
+    .ProjectTo<MemberResponse>(mapper.ConfigurationProvider)
+    .SingleOrDefaultAsync();
+
+    public async Task<IEnumerable<MemberResponse>> GetMembersAsync() 
+    => await context.Users
+    .ProjectTo<MemberResponse>(mapper.ConfigurationProvider).ToListAsync();
 
     public async Task<bool> SaveAllAsync() 
     => await context.SaveChangesAsync() > 0;

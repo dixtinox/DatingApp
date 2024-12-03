@@ -14,7 +14,7 @@ public class BuggyControllerTests
     private readonly HttpClient _client;
     private HttpResponseMessage httpResponse;
     private string requestUrl;
-    private string loginObjetct;
+    private string loginObject;
     private HttpContent httpContent;
 
     public BuggyControllerTests()
@@ -34,8 +34,8 @@ public class BuggyControllerTests
             Password = password
         };
 
-        loginObjetct = GetLoginObject(loginRequest);
-        httpContent = GetHttpContent(loginObjetct);
+        loginObject = GetLoginObject(loginRequest);
+        httpContent = GetHttpContent(loginObject);
 
         httpResponse = await _client.PostAsync(requestUrl, httpContent);
         var reponse = await httpResponse.Content.ReadAsStringAsync();
@@ -111,10 +111,9 @@ public class BuggyControllerTests
         return entityObject.ToString();
     }
 
-    private static StringContent GetHttpContent(string objectToCode)
-    {
-        return new StringContent(objectToCode, Encoding.UTF8, "application/json");
-    }
+    private static StringContent GetHttpContent(string objectToCode) =>
+        new (objectToCode, Encoding.UTF8, "application/json");
+
 
     #endregion
 }
